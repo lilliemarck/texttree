@@ -8,9 +8,16 @@ TEST(parser, parse_empty_string)
     EXPECT_FALSE(node);
 }
 
-TEST(parser, unquoted_string)
+TEST(parser, parse_unquoted_string)
 {
     tt::node_ptr node = tt::parse("submarine");
     ASSERT_TRUE(node != nullptr);
     ASSERT_EQ("submarine", node->text());
+}
+
+TEST(parser, unquoted_string_surrounded_by_whitespace)
+{
+    tt::node_ptr node = tt::parse(" \ndata\t");
+    ASSERT_TRUE(node != nullptr);
+    ASSERT_EQ("data", node->text());
 }
