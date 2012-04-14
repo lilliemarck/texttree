@@ -36,6 +36,11 @@ node_ptr const parse_children(std::string const& string)
         {
             auto end_of_string = std::find_if(iterator, end(string), [](char c)
             {
+                if (c == '\"')
+                {
+                    throw syntax_error("Found \" in an unquoted string");
+                }
+
                 return isspace(c);
             });
 

@@ -42,3 +42,8 @@ TEST(parser, throws_on_unterminated_string)
 {
     ASSERT_THROW(tt::parse("\"inch"), tt::syntax_error);
 }
+
+TEST(parser, throws_on_quote_in_unquoted_string)
+{
+    ASSERT_THROW(tt::parse("beetle\""), tt::syntax_error);
+}
