@@ -6,7 +6,7 @@
 
 namespace tt {
 
-node_ptr parse_children(const std::string& string)
+node_ptr const parse_children(std::string const& string)
 {
     tt::node_ptr root = std::make_shared<node>();
 
@@ -29,7 +29,7 @@ node_ptr parse_children(const std::string& string)
     return root;
 }
 
-node_ptr parse(const std::string& string)
+node_ptr const parse(std::string const& string)
 {
     node_ptr node = parse_children(string);
     return node->child_count() > 0 ? node->child_at(0) : node_ptr();

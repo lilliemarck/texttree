@@ -10,7 +10,7 @@ node::node(std::string const& text) : text_(text)
 {
 }
 
-std::string node::text() const
+std::string const node::text() const
 {
     return text_;
 }

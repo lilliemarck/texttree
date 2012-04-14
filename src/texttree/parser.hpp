@@ -5,8 +5,8 @@
 
 namespace tt {
 
-node_ptr parse_children(std::string const& string);
-node_ptr parse(std::string const& string);
+node_ptr const parse_children(std::string const& string);
+node_ptr const parse(std::string const& string);
 
 } // namespace tt
 

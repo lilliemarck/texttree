@@ -15,7 +15,7 @@ public:
     node();
     node(std::string const& text);
 
-    std::string text() const;
+    std::string const text() const;
 
     void append_child(node_ptr const& child);
     size_t const child_count() const;
