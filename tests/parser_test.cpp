@@ -104,3 +104,41 @@ TEST(parser, syntax_error_on_opening_paren_after_closing_paren)
 {
     ASSERT_THROW(tt::parse("launch()("), tt::syntax_error);
 }
+
+TEST(parser, parse_hiearchy)
+{
+    tt::node_ptr keen = tt::parse("keen(fence(revise) without)");
+    EXPECT_EQ("keen", keen->text());
+    ASSERT_EQ(2u, keen->child_count());
+
+    tt::node_ptr fence = keen->child_at(0);
+    EXPECT_EQ("fence", fence->text());
+    ASSERT_EQ(1u, fence->child_count());
+
+    tt::node_ptr revise = fence->child_at(0);
+    EXPECT_EQ("revise", revise->text());
+    ASSERT_EQ(0u, revise->child_count());
+
+    tt::node_ptr without = keen->child_at(1);
+    EXPECT_EQ("without", without->text());
+    ASSERT_EQ(0u, without->child_count());
+}
+
+TEST(parser, parse_hiearchy_with_more_whitespace_and_quoted_strings)
+{
+    tt::node_ptr keen = tt::parse("keen   (fence\n(revise\t) \"with out\")");
+    EXPECT_EQ("keen", keen->text());
+    ASSERT_EQ(2u, keen->child_count());
+
+    tt::node_ptr fence = keen->child_at(0);
+    EXPECT_EQ("fence", fence->text());
+    ASSERT_EQ(1u, fence->child_count());
+
+    tt::node_ptr revise = fence->child_at(0);
+    EXPECT_EQ("revise", revise->text());
+    ASSERT_EQ(0u, revise->child_count());
+
+    tt::node_ptr without = keen->child_at(1);
+    EXPECT_EQ("with out", without->text());
+    ASSERT_EQ(0u, without->child_count());
+}

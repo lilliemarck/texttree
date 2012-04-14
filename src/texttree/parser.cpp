@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cctype>
+#include <stack>
 #include <string>
 
 namespace tt {
@@ -13,33 +14,18 @@ syntax_error::syntax_error(std::string const& what) : std::runtime_error(what)
 
 namespace
 {
-    struct parse_node
+    void text(std::stack<node_ptr,std::vector<node_ptr>>& stack,
+              std::string::const_iterator const& begin,
+              std::string::const_iterator const& end)
     {
-        tt::node_ptr node;
-        bool inside_parens;
-    };
-
-    void text(std::vector<parse_node>& stack, std::string const& string)
-    {
-        node_ptr child = std::make_shared<node>(string);
-
-        if (stack.back().inside_parens)
-        {
-            stack.back().node->append_child(child);
-            stack.push_back({child, false});
-        }
-        else
-        {
-            stack.pop_back();
-            stack.back().node->append_child(child);
-        }
+        stack.top()->append_child(std::make_shared<node>(std::string(begin, end)));
     }
 }
 
 node_ptr const parse_children(std::string const& string)
 {
-    std::vector<parse_node> stack;
-    stack.push_back({std::make_shared<node>(), true});
+    std::stack<node_ptr,std::vector<node_ptr>> stack;
+    stack.push(std::make_shared<node>());
 
     for (auto iterator = begin(string); iterator != end(string);)
     {
@@ -56,29 +42,30 @@ node_ptr const parse_children(std::string const& string)
                 throw syntax_error("Unterminated quoted string");
             }
 
-            text(stack, std::string(iterator, end_of_string));
+            text(stack, iterator, end_of_string);
             iterator = end_of_string;
         }
         else if (*iterator == '(')
         {
-            if (stack.back().inside_parens)
+            auto const& parent_node = stack.top();
+            size_t parent_node_child_count = parent_node->child_count();
+
+            if (parent_node_child_count == 0)
             {
-                throw syntax_error("Unexpected (");
+                 throw syntax_error("Unexpected (");
             }
 
-            iterator = std::find_if(iterator, end(string), [](char c)
-            {
-                return c == ')';
-            });
-
-            if (iterator == end(string))
-            {
-                throw syntax_error("Missing closing paren");
-            }
+            auto const& previous_node = parent_node->child_at(parent_node_child_count - 1);
+            stack.push(previous_node);
         }
         else if (*iterator == ')')
         {
-            throw syntax_error("Unexpected )");
+            if (stack.size() < 2)
+            {
+                throw syntax_error("Unexpected )");
+            }
+
+            stack.pop();
         }
         else if (!isspace(*iterator))
         {
@@ -92,7 +79,7 @@ node_ptr const parse_children(std::string const& string)
                 return isspace(c) || c == '(' || c == ')';
             });
 
-            text(stack, std::string(iterator, end_of_string));
+            text(stack, iterator, end_of_string);
             iterator = end_of_string;
             continue;
         }
@@ -100,8 +87,12 @@ node_ptr const parse_children(std::string const& string)
         ++iterator;
     }
 
-    assert(stack.size() <= 2);
-    return stack.front().node;
+    if (stack.size() > 1)
+    {
+        throw syntax_error("Missing )");
+    }
+
+    return stack.top();
 }
 
 node_ptr const parse(std::string const& string)
