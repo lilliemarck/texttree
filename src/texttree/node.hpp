@@ -15,7 +15,6 @@ public:
     node();
     node(std::string const& text);
 
-    operator bool() const;
     std::string text() const;
 
     void append_child(node_ptr const& child);
