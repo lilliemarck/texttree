@@ -142,3 +142,14 @@ TEST(parser, parse_hiearchy_with_more_whitespace_and_quoted_strings)
     EXPECT_EQ("with out", without->text());
     ASSERT_EQ(0u, without->child_count());
 }
+
+TEST(parser, escapes_in_quoted_string)
+{
+    tt::node_ptr node = tt::parse("\"\\\"\\\\\"");
+    EXPECT_EQ("\"\\", node->text());
+}
+
+TEST(parser, parse_error_on_unsupported_esacpe)
+{
+    ASSERT_THROW(tt::parse("\"\\t\""), tt::syntax_error);
+}

@@ -71,19 +71,42 @@ node_ptr const parse_children(std::string const& string)
     {
         if (*iterator == '\"')
         {
-            ++iterator;
-            auto end_of_string = std::find_if(iterator, end(string), [](char c)
+            std::string temp;
+            while (++iterator != end(string))
             {
-                return c == '\"';
-            });
+                char c = *iterator;
+                if (c == '\"')
+                {
+                    text(is_open, builder, begin(temp), end(temp));
+                    break;
+                }
+                else if (c == '\\')
+                {
+                    if (++iterator == end(string))
+                    {
+                        break;
+                    }
 
-            if (end_of_string == end(string))
+                    c = *iterator;
+                    if (c == '\"' || c == '\\')
+                    {
+                        temp += c;
+                    }
+                    else
+                    {
+                        throw syntax_error("Unknown escaped character");
+                    }
+                }
+                else
+                {
+                    temp += c;
+                }
+            }
+
+            if (iterator == end(string))
             {
                 throw syntax_error("Unterminated quoted string");
             }
-
-            text(is_open, builder, iterator, end_of_string);
-            iterator = end_of_string;
         }
         else if (*iterator == '(')
         {
