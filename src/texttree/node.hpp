@@ -1,5 +1,5 @@
-#ifndef TEXTTREE_NODE_HPP
-#define TEXTTREE_NODE_HPP
+#ifndef TEXT_TREE_NODE_HPP
+#define TEXT_TREE_NODE_HPP
 
 #include <memory>
 #include <string>
@@ -29,4 +29,4 @@ private:
 
 } // namespace tt
 
-#endif // TEXTTREE_NODE_HPP
+#endif // TEXT_TREE_NODE_HPP
