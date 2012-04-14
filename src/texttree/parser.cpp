@@ -19,7 +19,8 @@ node_ptr const parse_children(std::string const& string)
         if (*iterator == '\"')
         {
             ++iterator;
-            auto end_of_string = std::find_if(iterator, end(string), [](char c) {
+            auto end_of_string = std::find_if(iterator, end(string), [](char c)
+            {
                 return c == '\"';
             });
 
@@ -33,7 +34,8 @@ node_ptr const parse_children(std::string const& string)
         }
         else if (!isspace(*iterator))
         {
-            auto end_of_string = std::find_if(iterator, end(string), [](char c) {
+            auto end_of_string = std::find_if(iterator, end(string), [](char c)
+            {
                 return isspace(c);
             });
 
