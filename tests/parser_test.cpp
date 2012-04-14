@@ -65,3 +65,42 @@ TEST(parser, non_space_separated_quoted_strings)
     EXPECT_EQ("pirate", nodes->child_at(0)->text());
     EXPECT_EQ("emission", nodes->child_at(1)->text());
 }
+
+TEST(parser, unqoted_string_followed_by_empty_parens)
+{
+    tt::node_ptr node = tt::parse("peace()");
+    EXPECT_EQ("peace", node->text());
+    EXPECT_EQ(0u, node->child_count());
+}
+
+TEST(parser, quoted_string_followed_by_empty_parens)
+{
+    tt::node_ptr node = tt::parse("\"healthy\"()");
+    EXPECT_EQ("healthy", node->text());
+    EXPECT_EQ(0u, node->child_count());
+}
+
+TEST(parser, syntax_error_on_missing_closing_paren)
+{
+    ASSERT_THROW(tt::parse("reviewer("), tt::syntax_error);
+}
+
+TEST(parser, syntax_error_on_only_parens)
+{
+    ASSERT_THROW(tt::parse("()"), tt::syntax_error);
+}
+
+TEST(parser, syntax_error_on_unexpected_closing_paren)
+{
+    ASSERT_THROW(tt::parse(")"), tt::syntax_error);
+}
+
+TEST(parser, syntax_error_on_unexpected_closing_paren_after_text)
+{
+    ASSERT_THROW(tt::parse("chicken)"), tt::syntax_error);
+}
+
+TEST(parser, syntax_error_on_opening_paren_after_closing_paren)
+{
+    ASSERT_THROW(tt::parse("launch()("), tt::syntax_error);
+}
