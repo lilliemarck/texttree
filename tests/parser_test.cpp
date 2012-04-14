@@ -47,3 +47,21 @@ TEST(parser, throws_on_quote_in_unquoted_string)
 {
     ASSERT_THROW(tt::parse("beetle\""), tt::syntax_error);
 }
+
+TEST(parser, space_separated_quoted_strings)
+{
+    tt::node_ptr nodes = tt::parse_children("\"system\" \"best\"");
+    ASSERT_EQ(2u, nodes->child_count());
+    EXPECT_TRUE(nodes->text().empty());
+    EXPECT_EQ("system", nodes->child_at(0)->text());
+    EXPECT_EQ("best", nodes->child_at(1)->text());
+}
+
+TEST(parser, non_space_separated_quoted_strings)
+{
+    tt::node_ptr nodes = tt::parse_children("\"pirate\"\"emission\"");
+    ASSERT_EQ(2u, nodes->child_count());
+    EXPECT_TRUE(nodes->text().empty());
+    EXPECT_EQ("pirate", nodes->child_at(0)->text());
+    EXPECT_EQ("emission", nodes->child_at(1)->text());
+}
