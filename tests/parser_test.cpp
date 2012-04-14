@@ -37,3 +37,8 @@ TEST(parser, quoted_string)
     tt::node_ptr node = tt::parse("\"Pholiderpeton\"");
     EXPECT_EQ("Pholiderpeton", node->text());
 }
+
+TEST(parser, throws_on_unterminated_string)
+{
+    ASSERT_THROW(tt::parse("\"inch"), tt::syntax_error);
+}
