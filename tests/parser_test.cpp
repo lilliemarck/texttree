@@ -31,3 +31,9 @@ TEST(parser, unqoted_strings_separated_by_whitespace)
     EXPECT_EQ("academy", nodes->child_at(0)->text());
     EXPECT_EQ("ward", nodes->child_at(1)->text());
 }
+
+TEST(parser, quoted_string)
+{
+    tt::node_ptr node = tt::parse("\"Pholiderpeton\"");
+    EXPECT_EQ("Pholiderpeton", node->text());
+}
