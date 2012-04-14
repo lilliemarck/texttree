@@ -6,30 +6,33 @@
 
 namespace tt {
 
-namespace
+node_ptr parse_children(const std::string& string)
 {
-    node_ptr parse_unquoted_string(std::string::const_iterator begin,
-                                   std::string::const_iterator end)
-    {
-        auto end_of_string = std::find_if(begin, end, [](char c) {
-            return isspace(c);
-        });
+    tt::node_ptr root = std::make_shared<node>();
 
-        return std::make_shared<node>(std::string(begin, end_of_string));
-    }
-} // namespace
-
-node_ptr parse(const std::string& string)
-{
-    for (auto iterator = begin(string); iterator != end(string); ++iterator)
+    for (auto iterator = begin(string); iterator != end(string);)
     {
         if (!isspace(*iterator))
         {
-            return parse_unquoted_string(iterator, end(string));
+            auto end_of_string = std::find_if(iterator, end(string), [](char c) {
+                return isspace(c);
+            });
+
+            root->append_child(std::make_shared<node>(std::string(iterator, end_of_string)));
+            iterator = end_of_string;
+            continue;
         }
+
+        ++iterator;
     }
 
-    return node_ptr();
+    return root;
+}
+
+node_ptr parse(const std::string& string)
+{
+    node_ptr node = parse_children(string);
+    return node->child_count() > 0 ? node->child_at(0) : node_ptr();
 }
 
 } // namespace tt

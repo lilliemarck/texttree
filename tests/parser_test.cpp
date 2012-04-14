@@ -21,3 +21,13 @@ TEST(parser, unquoted_string_surrounded_by_whitespace)
     ASSERT_TRUE(node != nullptr);
     ASSERT_EQ("data", node->text());
 }
+
+TEST(parser, unqoted_strings_separated_by_whitespace)
+{
+    tt::node_ptr nodes = tt::parse_children("academy ward");
+    ASSERT_TRUE(nodes != nullptr);
+    ASSERT_EQ(2u, nodes->child_count());
+    EXPECT_TRUE(nodes->text().empty());
+    EXPECT_EQ("academy", nodes->child_at(0)->text());
+    EXPECT_EQ("ward", nodes->child_at(1)->text());
+}
