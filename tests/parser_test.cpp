@@ -85,9 +85,9 @@ TEST(parser, syntax_error_on_missing_closing_paren)
     ASSERT_THROW(tt::parse("reviewer("), tt::syntax_error);
 }
 
-TEST(parser, syntax_error_on_only_parens)
+TEST(parser, syntax_error_on_only_open_paren)
 {
-    ASSERT_THROW(tt::parse("()"), tt::syntax_error);
+    ASSERT_THROW(tt::parse("("), tt::syntax_error);
 }
 
 TEST(parser, syntax_error_on_unexpected_closing_paren)
