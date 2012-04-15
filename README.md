@@ -62,3 +62,5 @@ If you use CMake and want to include the library in your code you can put the so
     add_subdirectory(${TEXTTREE_ROOT}/src)           # Run TextTree's CMake file
     include_directories(${TEXTTREE_ROOT}/src)        # Path to headers
     target_link_libraries(your_application texttree) # Link with texttree library
+
+If you want to run the unit tests then you should build the root CMakeFile.txt instead. TextTree uses the Google testing framework which you must build separately. Then pass -DCMAKE_INCLUDE_PATH=*path to gtest headers* and -DCMAKE_LIBRARY_PATH=*path to gtest libraries* to cmake when generating the makefiles.
