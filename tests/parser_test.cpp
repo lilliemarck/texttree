@@ -3,7 +3,7 @@
 
 tt::node_ptr const parse_one(std::string const& string)
 {
-    auto node = tt::parse_children(string);
+    auto node = tt::load(string);
     return node->child_count() > 0 ? node->child_at(0) : nullptr;
 }
 
@@ -29,7 +29,7 @@ TEST(parser, unquoted_string_surrounded_by_whitespace)
 
 TEST(parser, unqoted_strings_separated_by_whitespace)
 {
-    tt::node_ptr nodes = tt::parse_children("academy ward");
+    tt::node_ptr nodes = tt::load("academy ward");
     ASSERT_TRUE(nodes != nullptr);
     ASSERT_EQ(2u, nodes->child_count());
     EXPECT_TRUE(nodes->text().empty());
@@ -55,7 +55,7 @@ TEST(parser, throws_on_quote_in_unquoted_string)
 
 TEST(parser, space_separated_quoted_strings)
 {
-    tt::node_ptr nodes = tt::parse_children("\"system\" \"best\"");
+    tt::node_ptr nodes = tt::load("\"system\" \"best\"");
     ASSERT_EQ(2u, nodes->child_count());
     EXPECT_TRUE(nodes->text().empty());
     EXPECT_EQ("system", nodes->child_at(0)->text());
@@ -64,7 +64,7 @@ TEST(parser, space_separated_quoted_strings)
 
 TEST(parser, non_space_separated_quoted_strings)
 {
-    tt::node_ptr nodes = tt::parse_children("\"pirate\"\"emission\"");
+    tt::node_ptr nodes = tt::load("\"pirate\"\"emission\"");
     ASSERT_EQ(2u, nodes->child_count());
     EXPECT_TRUE(nodes->text().empty());
     EXPECT_EQ("pirate", nodes->child_at(0)->text());

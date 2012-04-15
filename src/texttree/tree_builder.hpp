@@ -22,8 +22,8 @@ private:
     std::stack<node_ptr,std::vector<node_ptr>> stack_;
 };
 
-node_ptr const parse_children(std::string const& string);
-node_ptr const parse_children_from_file(char const* filename);
+node_ptr const load(std::string const& string);
+node_ptr const load_file(char const* filename);
 
 } // namespace tt
 

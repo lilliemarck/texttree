@@ -27,7 +27,7 @@ void tree_builder::end_node()
     stack_.pop();
 }
 
-node_ptr const parse_children(std::string const& string)
+node_ptr const load(std::string const& string)
 {
     tree_builder builder;
     parser parser(builder);
@@ -36,7 +36,7 @@ node_ptr const parse_children(std::string const& string)
     return builder.tree();
 }
 
-node_ptr const parse_children_from_file(char const* filename)
+node_ptr const load_file(char const* filename)
 {
     tree_builder builder;
     parser parser(builder);
