@@ -17,7 +17,7 @@ Examples
 
 Here `object` is a node with three children. The text of each child acts as the key and the child of the key contains the value.
 
-Parenthesis are omitted be skipped after each value because they are empty anyway. The strings are written in unquoted style becase there are no spaces. Without these tricks would make the example look like this instead.
+Parenthesis are omitted be skipped after each value because they are empty anyway. The strings are written in unquoted style becase there are no spaces. Without these tricks it would look like this instead.
 
     "object"(
       "key1"("value1"())
