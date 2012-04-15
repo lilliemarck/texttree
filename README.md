@@ -3,6 +3,8 @@ TextTree
 
 TextTree is a grammar for describing very simple hierarchical text data and a C++ library that can load (but not yet save) such data.
 
+The format is simple. There is only one kind of node. Each node contains a text string and any number of child nodes. Thats all!
+
 Examples
 --------
 
