@@ -18,7 +18,7 @@ node_ptr const tree_builder::tree() const
 void tree_builder::begin_node(std::string const& text)
 {
     node_ptr child = std::make_shared<node>(text);
-    stack_.top()->append_child(child);
+    stack_.top()->children.push_back(child);
     stack_.push(child);
 }
 

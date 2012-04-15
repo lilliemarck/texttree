@@ -9,30 +9,13 @@ namespace tt {
 
 typedef std::shared_ptr<class node> node_ptr;
 
-class node
+struct node
 {
-public:
-    typedef std::vector<node_ptr>::iterator iterator;
-    typedef std::vector<node_ptr>::const_iterator const_iterator;
-
     node();
     node(std::string const& text);
 
-    std::string const text() const;
-    void set_text(std::string const& text);
-
-    void append_child(node_ptr const& child);
-    size_t const child_count() const;
-    node_ptr const child_at(size_t index) const;
-
-    iterator const begin();
-    const_iterator const begin() const;
-    iterator const end();
-    const_iterator const end() const;
-
-private:
-    std::string text_;
-    std::vector<node_ptr> children_;
+    std::string text;
+    std::vector<node_ptr> children;
 };
 
 node_ptr const find(node const& node, std::string const& text);
