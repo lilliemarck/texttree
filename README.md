@@ -45,7 +45,7 @@ Library
 
 The library uses C++11 and intends to use modern C++ idioms.
 
-The library contains a `parser` that generates events to a `parser_delegate`. The `parser_delegate` may be subclassed to create custom data structures or do streaming parsing. There is also one `parser_delegate` implementation called `tree_builder` that builds a hiearchy of node` objects. `tree_builder.hpp` also contains a few helper functions to make loading files really simple:
+The library contains a `parser` that generates events to a `parser_delegate`. The `parser_delegate` may be subclassed to create custom data structures or do streaming parsing. There is also one `parser_delegate` implementation called `tree_builder` that builds a hiearchy of `node` objects. `tree_builder` also comes with a few helper functions to make loading files really simple:
 
 *Example*
 
