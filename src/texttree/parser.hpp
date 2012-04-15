@@ -25,7 +25,7 @@ class parser
 {
 public:
     parser(parser_delegate& delegate);
-    void parse(char const *begin, char const *end);
+    void parse(char const* begin, char const* end);
     void end_parse();
 
 private:
