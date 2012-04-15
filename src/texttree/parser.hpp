@@ -1,7 +1,6 @@
 #ifndef TEXT_TREE_PARSER_HPP
 #define TEXT_TREE_PARSER_HPP
 
-#include <texttree/node.hpp>
 #include <stack>
 #include <stdexcept>
 #include <string>
@@ -46,9 +45,6 @@ private:
     std::stack<bool,std::vector<bool>> is_open_;
     std::string buffer_;
 };
-
-node_ptr const parse_children(std::string const& string);
-node_ptr const parse(std::string const& string);
 
 } // namespace tt
 

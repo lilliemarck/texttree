@@ -1,5 +1,4 @@
 #include <texttree/parser.hpp>
-#include <texttree/node.hpp>
 #include <cassert>
 #include <cctype>
 
@@ -156,54 +155,6 @@ void parser::end_node()
 {
     is_open_.pop();
     delegate_.end_node();
-}
-
-namespace
-{
-    class tree_builder : public parser_delegate
-    {
-    public:
-        tree_builder()
-        {
-            stack_.push(std::make_shared<node>());
-        }
-
-        void begin_node(std::string const& text)
-        {
-            node_ptr child = std::make_shared<node>(text);
-            stack_.top()->append_child(child);
-            stack_.push(child);
-        }
-
-        void end_node()
-        {
-            stack_.pop();
-        }
-
-        node_ptr const tree() const
-        {
-            assert(stack_.size() == 1);
-            return stack_.top();
-        }
-
-    private:
-        std::stack<node_ptr,std::vector<node_ptr>> stack_;
-    };
-}
-
-node_ptr const parse_children(std::string const& string)
-{
-    tree_builder builder;
-    parser parser(builder);
-    parser.parse(&*begin(string), &*end(string));
-    parser.end_parse();
-    return builder.tree();
-}
-
-node_ptr const parse(std::string const& string)
-{
-    node_ptr node = parse_children(string);
-    return node->child_count() > 0 ? node->child_at(0) : node_ptr();
 }
 
 } // namespace tt

@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
-#include <texttree/node.hpp>
-#include <texttree/parser.hpp>
+#include <texttree/tree_builder.hpp>
 
 TEST(parser, parse_empty_string)
 {

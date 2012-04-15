@@ -6,7 +6,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -pedantic -Werror")
 include_directories(src)
 add_library(texttree
     src/texttree/node.cpp
-    src/texttree/parser.cpp)
+    src/texttree/parser.cpp
+    src/texttree/tree_builder.cpp)
 
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
