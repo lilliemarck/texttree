@@ -1,5 +1,6 @@
 #include <texttree/tree_builder.hpp>
 #include <cassert>
+#include <fstream>
 
 namespace tt {
 
@@ -39,6 +40,23 @@ node_ptr const parse(std::string const& string)
 {
     node_ptr node = parse_children(string);
     return node->child_count() > 0 ? node->child_at(0) : node_ptr();
+}
+
+node_ptr const parse_children_from_file(char const* filename)
+{
+    tree_builder builder;
+    parser parser(builder);
+    std::ifstream file(filename);
+
+    while (file.good())
+    {
+        char buffer[1024];
+        file.read(buffer, sizeof(buffer));
+        parser.parse(buffer, buffer + file.gcount());
+    }
+
+    parser.end_parse();
+    return builder.tree();
 }
 
 } // namespace tt
