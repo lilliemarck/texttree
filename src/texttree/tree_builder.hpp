@@ -9,15 +9,15 @@
 
 namespace tt {
 
-class tree_builder : public parser_delegate
+class tree_builder final : public parser_delegate
 {
 public:
     tree_builder();
     node_ptr const tree() const;
 
 private:
-    void begin_node(std::string const& text);
-    void end_node();
+    void begin_node(std::string const& text) override;
+    void end_node() override;
 
     std::stack<node_ptr,std::vector<node_ptr>> stack_;
 };
