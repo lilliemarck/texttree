@@ -26,7 +26,7 @@ Parenthesis are omitted be skipped after each value because they are empty anywa
 
 *Lists*
 
-    list(value1 value2 value3)
+    list(10 20 30)
 
 In this example `list` contains three child nodes. If we want to have a list of strings that may contain spaces just write like this instead:
 
