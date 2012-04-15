@@ -7,18 +7,16 @@
 
 namespace tt {
 
-typedef std::shared_ptr<class node> node_ptr;
-
 struct node
 {
     node();
     node(std::string const& text);
 
     std::string text;
-    std::vector<node_ptr> children;
+    std::vector<node> children;
 };
 
-node_ptr const find(node const& node, std::string const& text);
+node const* const find(node const& node, std::string const& text);
 
 } // namespace tt
 

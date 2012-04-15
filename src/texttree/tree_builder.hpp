@@ -13,17 +13,17 @@ class tree_builder final : public parser_delegate
 {
 public:
     tree_builder();
-    node_ptr const tree() const;
+    node const tree() const;
 
 private:
     void begin_node(std::string const& text) override;
     void end_node() override;
 
-    std::stack<node_ptr,std::vector<node_ptr>> stack_;
+    std::stack<node,std::vector<node>> stack_;
 };
 
-node_ptr const load(std::string const& string);
-node_ptr const load_file(char const* filename);
+node const load(std::string const& string);
+node const load_file(char const* filename);
 
 } // namespace tt
 

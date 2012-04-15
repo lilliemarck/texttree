@@ -6,10 +6,10 @@ namespace tt {
 
 tree_builder::tree_builder()
 {
-    stack_.push(std::make_shared<node>());
+    stack_.emplace();
 }
 
-node_ptr const tree_builder::tree() const
+node const tree_builder::tree() const
 {
     assert(stack_.size() == 1);
     return stack_.top();
@@ -17,17 +17,17 @@ node_ptr const tree_builder::tree() const
 
 void tree_builder::begin_node(std::string const& text)
 {
-    node_ptr child = std::make_shared<node>(text);
-    stack_.top()->children.push_back(child);
-    stack_.push(child);
+    stack_.emplace(text);
 }
 
 void tree_builder::end_node()
 {
+    node child = stack_.top();
     stack_.pop();
+    stack_.top().children.push_back(child);
 }
 
-node_ptr const load(std::string const& string)
+node const load(std::string const& string)
 {
     tree_builder builder;
     parser parser(builder);
@@ -36,7 +36,7 @@ node_ptr const load(std::string const& string)
     return builder.tree();
 }
 
-node_ptr const load_file(char const* filename)
+node const load_file(char const* filename)
 {
     tree_builder builder;
     parser parser(builder);
