@@ -138,9 +138,9 @@ TEST(parser, parse_hiearchy_with_more_whitespace_and_quoted_strings)
     EXPECT_EQ("revise", revise->text());
     ASSERT_EQ(0u, revise->child_count());
 
-    tt::node_ptr without = keen->child_at(1);
-    EXPECT_EQ("with out", without->text());
-    ASSERT_EQ(0u, without->child_count());
+    tt::node_ptr with_out = keen->child_at(1);
+    EXPECT_EQ("with out", with_out->text());
+    ASSERT_EQ(0u, with_out->child_count());
 }
 
 TEST(parser, escapes_in_quoted_string)
