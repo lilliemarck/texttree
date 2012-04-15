@@ -1,5 +1,5 @@
-#ifndef TEXT_TREE_TREE_BUILDER_HPP
-#define TEXT_TREE_TREE_BUILDER_HPP
+#ifndef TEXTTREE_TREE_BUILDER_HPP
+#define TEXTTREE_TREE_BUILDER_HPP
 
 #include <texttree/node.hpp>
 #include <texttree/parser.hpp>
@@ -28,4 +28,4 @@ node_ptr const parse_children_from_file(char const* filename);
 
 } // namespace tt
 
-#endif // TEXT_TREE_TREE_BUILDER_HPP
+#endif // TEXTTREE_TREE_BUILDER_HPP

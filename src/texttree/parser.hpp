@@ -1,5 +1,5 @@
-#ifndef TEXT_TREE_PARSER_HPP
-#define TEXT_TREE_PARSER_HPP
+#ifndef TEXTTREE_PARSER_HPP
+#define TEXTTREE_PARSER_HPP
 
 #include <stack>
 #include <stdexcept>
@@ -48,4 +48,4 @@ private:
 
 } // namespace tt
 
-#endif // TEXT_TREE_PARSER_HPP
+#endif // TEXTTREE_PARSER_HPP

@@ -1,5 +1,5 @@
-#ifndef TEXT_TREE_NODE_HPP
-#define TEXT_TREE_NODE_HPP
+#ifndef TEXTTREE_NODE_HPP
+#define TEXTTREE_NODE_HPP
 
 #include <memory>
 #include <string>
@@ -39,4 +39,4 @@ node_ptr const find(node const& node, std::string const& text);
 
 } // namespace tt
 
-#endif // TEXT_TREE_NODE_HPP
+#endif // TEXTTREE_NODE_HPP
