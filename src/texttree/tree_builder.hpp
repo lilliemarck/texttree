@@ -23,7 +23,6 @@ private:
 };
 
 node_ptr const parse_children(std::string const& string);
-node_ptr const parse(std::string const& string);
 node_ptr const parse_children_from_file(char const* filename);
 
 } // namespace tt

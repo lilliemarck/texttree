@@ -36,12 +36,6 @@ node_ptr const parse_children(std::string const& string)
     return builder.tree();
 }
 
-node_ptr const parse(std::string const& string)
-{
-    node_ptr node = parse_children(string);
-    return node->child_count() > 0 ? node->child_at(0) : node_ptr();
-}
-
 node_ptr const parse_children_from_file(char const* filename)
 {
     tree_builder builder;
