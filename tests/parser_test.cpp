@@ -153,3 +153,8 @@ TEST(parser, parse_error_on_unsupported_esacpe)
 {
     ASSERT_THROW(tt::parse("\"\\t\""), tt::syntax_error);
 }
+
+TEST(parser, syntax_error_on_eof_in_nested_unqoted_string)
+{
+    ASSERT_THROW(tt::parse("daze(monsoon"), tt::syntax_error);
+}
