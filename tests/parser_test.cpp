@@ -7,7 +7,7 @@ tt::node parse_one(std::string const& string)
 {
     auto node = tt::load(string);
     assert(!node.children.empty());
-    return node.children.front();
+    return std::move(node.children.front());
 }
 
 TEST(parser, parse_empty_string)

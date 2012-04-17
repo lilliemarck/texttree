@@ -9,10 +9,10 @@ tree_builder::tree_builder()
     stack_.emplace();
 }
 
-node const tree_builder::tree() const
+node tree_builder::pop_tree()
 {
     assert(stack_.size() == 1);
-    return stack_.top();
+    return std::move(stack_.top());
 }
 
 void tree_builder::begin_node(std::string const& text)
@@ -22,9 +22,9 @@ void tree_builder::begin_node(std::string const& text)
 
 void tree_builder::end_node()
 {
-    node child = stack_.top();
+    auto temp = std::move(stack_.top());
     stack_.pop();
-    stack_.top().children.push_back(child);
+    stack_.top().children.push_back(std::move(temp));
 }
 
 node const load(std::string const& string)
@@ -33,7 +33,7 @@ node const load(std::string const& string)
     parser parser(builder);
     parser.parse(&*begin(string), &*end(string));
     parser.end_parse();
-    return builder.tree();
+    return builder.pop_tree();
 }
 
 node const load_file(char const* filename)
@@ -50,7 +50,7 @@ node const load_file(char const* filename)
     }
 
     parser.end_parse();
-    return builder.tree();
+    return builder.pop_tree();
 }
 
 } // namespace tt

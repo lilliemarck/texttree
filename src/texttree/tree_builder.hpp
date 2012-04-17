@@ -13,7 +13,7 @@ class tree_builder final : public parser_delegate
 {
 public:
     tree_builder();
-    node const tree() const;
+    node pop_tree();
 
 private:
     void begin_node(std::string const& text) override;
